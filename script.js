@@ -6,14 +6,34 @@ const stepDownload = document.getElementById("stepDownload");
 const errorMessage = document.getElementById("errorMessage");
 
 const audioPlayer = document.getElementById("audioPlayer");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const progressWrap = document.querySelector(".progress-wrap");
+const progressBar = document.getElementById("progressBar");
+const currentTimeEl = document.getElementById("currentTime");
+const durationEl = document.getElementById("duration");
 const spotifyRevealBtn = document.getElementById("spotifyRevealBtn");
 
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycby05l-uEV2z0MUcS59XhnN92NHVUzfdQBwiSI4IOQUDeECm7TfsHknvLFBhMX4Mp1nA/exec";
 
+const SPOTIFY_URL = "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7";
+
+let hasTrackedPlay = false;
+
 function getUTM(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param) || "";
+}
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return "0:00";
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60)
+    .toString()
+    .padStart(2, "0");
+
+  return `${minutes}:${remainingSeconds}`;
 }
 
 form.addEventListener("submit", async function (e) {
@@ -41,43 +61,61 @@ form.addEventListener("submit", async function (e) {
       body: JSON.stringify(payload)
     });
 
-    // Meta Lead Event
     fbq("track", "Lead");
 
-    // Hide signup screen
     stepSignup.classList.add("hidden");
-
-    // Show audio player screen
     stepDownload.classList.remove("hidden");
-
   } catch (error) {
     console.error(error);
     errorMessage.classList.remove("hidden");
   }
 });
 
+playPauseBtn.addEventListener("click", function () {
+  if (audioPlayer.paused) {
+    audioPlayer.play();
+  } else {
+    audioPlayer.pause();
+  }
+});
+
 audioPlayer.addEventListener("play", function () {
-  fbq("trackCustom", "PreviewPlay");
+  playPauseBtn.textContent = "❚❚";
+
+  if (!hasTrackedPlay) {
+    fbq("trackCustom", "PreviewPlay");
+    hasTrackedPlay = true;
+  }
+});
+
+audioPlayer.addEventListener("pause", function () {
+  playPauseBtn.textContent = "▶";
+});
+
+audioPlayer.addEventListener("loadedmetadata", function () {
+  durationEl.textContent = formatTime(audioPlayer.duration);
+});
+
+audioPlayer.addEventListener("timeupdate", function () {
+  const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+  progressBar.style.width = `${progress || 0}%`;
+  currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+});
+
+progressWrap.addEventListener("click", function (e) {
+  const rect = progressWrap.getBoundingClientRect();
+  const clickPosition = e.clientX - rect.left;
+  const percentage = clickPosition / rect.width;
+
+  audioPlayer.currentTime = percentage * audioPlayer.duration;
+});
+
+audioPlayer.addEventListener("ended", function () {
+  playPauseBtn.textContent = "▶";
+  progressBar.style.width = "0%";
 });
 
 spotifyRevealBtn.addEventListener("click", function () {
-
   fbq("trackCustom", "SpotifyRevealClicked");
-
-  window.open(
-    "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7",
-    "_blank"
-  );
-});
-
-spotifyBtn.addEventListener("click", function () {
-
-  fbq("trackCustom", "SpotifyFollowClicked");
-
-});
-
-audioPlayer.playbackRate = 1;
-
-audioPlayer.addEventListener("ratechange", function () {
-  audioPlayer.playbackRate = 1;
+  window.location.href = SPOTIFY_URL;
 });
