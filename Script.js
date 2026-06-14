@@ -18,12 +18,9 @@ form.addEventListener("submit", async function (e) {
 
   errorMessage.classList.add("hidden");
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-
   const payload = {
-    name,
-    email,
+    name: document.getElementById("name").value.trim(),
+    email: document.getElementById("email").value.trim(),
     source: "Meta Ads",
     utm_source: getUTM("utm_source"),
     utm_medium: getUTM("utm_medium"),
@@ -35,9 +32,7 @@ form.addEventListener("submit", async function (e) {
     await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
 
@@ -53,8 +48,10 @@ form.addEventListener("submit", async function (e) {
 downloadBtn.addEventListener("click", function () {
   fbq("trackCustom", "FreeDownloadClicked");
 
-  stepDownload.classList.add("hidden");
-  stepSpotify.classList.remove("hidden");
+  setTimeout(() => {
+    stepDownload.classList.add("hidden");
+    stepSpotify.classList.remove("hidden");
+  }, 700);
 });
 
 spotifyBtn.addEventListener("click", function () {
