@@ -3,76 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>ZOYA Inner Circle</title>
   <link rel="stylesheet" href="style.css" />
 
- <!-- Meta Pixel -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
 
-  fbq('init', '686728073683776');
-  fbq('track', 'PageView');
-  fbq('track', 'ViewContent');
-</script>
+    fbq('init', '686728073683776');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent');
+  </script>
 
-<noscript>
-  <img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=686728073683776&ev=PageView&noscript=1"/>
-</noscript>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=686728073683776&ev=PageView&noscript=1"/>
+  </noscript>
 </head>
 
 <body>
   <main class="page">
     <section class="card">
-      <p class="eyebrow">ZOYA INNER CIRCLE</p>
 
-      <h1>Get an unreleased ZOYA track for free</h1>
+      <div id="stepSignup">
+        <p class="eyebrow">ZOYA INNER CIRCLE</p>
+        <h1>Get an unreleased ZOYA track for free</h1>
+        <p class="subtext">
+          Join the private ZOYA fan list and unlock a free download of an unreleased track.
+        </p>
 
-      <p class="subtext">
-        Join the private ZOYA fan list and unlock a free download of an unreleased track.
-      </p>
+        <form id="signupForm">
+          <input type="text" id="name" placeholder="Your name" required />
+          <input type="email" id="email" placeholder="Your email" required />
 
-      <form id="signupForm">
-        <input type="text" id="name" placeholder="Your name" required />
-        <input type="email" id="email" placeholder="Your email" required />
+          <label class="consent">
+            <input type="checkbox" required />
+            I agree to receive emails from ZOYA. I can unsubscribe anytime.
+          </label>
 
-        <label class="consent">
-          <input type="checkbox" required />
-          I agree to receive emails from ZOYA. I can unsubscribe anytime.
-        </label>
+          <button type="submit">Unlock Free Download</button>
+        </form>
 
-        <button type="submit">Unlock Free Download</button>
-      </form>
+        <p id="errorMessage" class="error hidden">
+          Something went wrong. Please try again.
+        </p>
+      </div>
 
-      <div id="successBox" class="hidden">
-        <h2>You're in 🎧</h2>
-        <p>Your free unreleased ZOYA track is now unlocked.</p>
+      <div id="stepDownload" class="hidden">
+        <p class="eyebrow">YOU'RE IN</p>
+        <h1>Your unreleased track is ready 🎧</h1>
+        <p class="subtext">
+          Thanks for joining the ZOYA Inner Circle. Click below to download your free track.
+        </p>
 
-    <a
-  id="downloadBtn"
-  class="button"
-  href="downloads/zoya-unreleased.mp3"
-  download="ZOYA-Unreleased.mp3"
->
-  Download Free Track
-</a>
+        <a
+          id="downloadBtn"
+          class="button"
+          href="downloads/zoya-unreleased.mp3"
+          download="ZOYA-Unreleased.mp3"
+        >
+          Download Free Track
+        </a>
+      </div>
 
-        <a id="spotifyBtn" class="button secondary hidden" href="YOUR_SPOTIFY_LINK_HERE" target="_blank">
+      <div id="stepSpotify" class="hidden">
+        <p class="eyebrow">ONE MORE STEP</p>
+        <h1>Follow ZOYA on Spotify</h1>
+        <p class="subtext">
+          Help support independent music and be the first to hear the next release.
+        </p>
+
+        <a
+          id="spotifyBtn"
+          class="button secondary"
+          href="https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Follow ZOYA on Spotify
         </a>
       </div>
 
-      <p id="errorMessage" class="error hidden">
-        Something went wrong. Please try again.
-      </p>
     </section>
   </main>
 
