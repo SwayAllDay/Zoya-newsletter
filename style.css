@@ -137,4 +137,10 @@ button:hover,
   color: #ff7777;
   margin-top: 14px;
   font-size: 13px;
+
+  .audio-player {
+  width: 100%;
+  margin: 8px 0 18px;
+  filter: grayscale(1);
+}
 }
