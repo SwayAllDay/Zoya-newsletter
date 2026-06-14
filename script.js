@@ -36,7 +36,7 @@ function formatTime(seconds) {
   return `${minutes}:${remainingSeconds}`;
 }
 
-form.addEventListener("submit", async function (e) {
+form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   errorMessage.classList.add("hidden");
@@ -51,24 +51,25 @@ form.addEventListener("submit", async function (e) {
     utm_content: getUTM("utm_content")
   };
 
-  try {
-    await fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
+  fbq("track", "Lead");
 
-    fbq("track", "Lead");
+  stepSignup.classList.add("hidden");
+  stepDownload.classList.remove("hidden");
 
-    stepSignup.classList.add("hidden");
-    stepDownload.classList.remove("hidden");
-  } catch (error) {
-    console.error(error);
-    errorMessage.classList.remove("hidden");
+  if (audioPlayer) {
+    audioPlayer.load();
   }
+
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  }).catch(function (error) {
+    console.error("Google Sheets save failed:", error);
+  });
 });
 
 playPauseBtn.addEventListener("click", function () {
@@ -119,7 +120,7 @@ spotifyRevealBtn.addEventListener("click", function () {
   fbq("trackCustom", "SpotifyRevealClicked");
 
   window.open(
-    "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7",
+    SPOTIFY_URL,
     "_blank",
     "noopener,noreferrer"
   );
