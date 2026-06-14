@@ -1,11 +1,12 @@
 const form = document.getElementById("signupForm");
-const successBox = document.getElementById("successBox");
+const stepSignup = document.getElementById("stepSignup");
+const stepDownload = document.getElementById("stepDownload");
+const stepSpotify = document.getElementById("stepSpotify");
 const errorMessage = document.getElementById("errorMessage");
 const downloadBtn = document.getElementById("downloadBtn");
 const spotifyBtn = document.getElementById("spotifyBtn");
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby05l-uEV2z0MUcS59XhnN92NHVUzfdQBwiSI4IOQUDeECm7TfsHknvLFBhMX4Mp1nA/exec";
-const SPOTIFY_URL = "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7";
 
 function getUTM(param) {
   const urlParams = new URLSearchParams(window.location.search);
@@ -24,7 +25,10 @@ form.addEventListener("submit", async function (e) {
     name,
     email,
     source: "Meta Ads",
-    utm_campaign: getUTM("utm_campaign")
+    utm_source: getUTM("utm_source"),
+    utm_medium: getUTM("utm_medium"),
+    utm_campaign: getUTM("utm_campaign"),
+    utm_content: getUTM("utm_content")
   };
 
   try {
@@ -39,8 +43,8 @@ form.addEventListener("submit", async function (e) {
 
     fbq("track", "Lead");
 
-    form.classList.add("hidden");
-    successBox.classList.remove("hidden");
+    stepSignup.classList.add("hidden");
+    stepDownload.classList.remove("hidden");
   } catch (error) {
     errorMessage.classList.remove("hidden");
   }
@@ -49,12 +53,10 @@ form.addEventListener("submit", async function (e) {
 downloadBtn.addEventListener("click", function () {
   fbq("trackCustom", "FreeDownloadClicked");
 
-  setTimeout(() => {
-    spotifyBtn.classList.remove("hidden");
-  }, 800);
+  stepDownload.classList.add("hidden");
+  stepSpotify.classList.remove("hidden");
 });
 
 spotifyBtn.addEventListener("click", function () {
   fbq("trackCustom", "SpotifyFollowClicked");
-  window.open(SPOTIFY_URL, "_blank");
 });
