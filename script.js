@@ -117,5 +117,10 @@ audioPlayer.addEventListener("ended", function () {
 
 spotifyRevealBtn.addEventListener("click", function () {
   fbq("trackCustom", "SpotifyRevealClicked");
-  window.location.href = SPOTIFY_URL;
+
+  window.open(
+    "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7",
+    "_blank",
+    "noopener,noreferrer"
+  );
 });
