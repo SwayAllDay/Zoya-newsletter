@@ -53,18 +53,18 @@
  <h1>Private Preview Unlocked</h1>
   <p class="subtext">Press play to hear the unreleased ZOYA track.</p>
 
- <audio
+<audio
   id="audioPlayer"
   class="audio-player"
   controls
+  controlsList="nodownload noplaybackrate"
+  disablePictureInPicture
   preload="metadata"
 >
   <source
     src="https://newsletter.zoyasmusic.com/downloads/zoya-unreleased.wav?v=1"
     type="audio/wav"
   >
-
-  Your browser does not support the audio element.
 </audio>
 
   <button id="spotifyRevealBtn" type="button">
