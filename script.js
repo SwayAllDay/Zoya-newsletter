@@ -41,15 +41,17 @@ form.addEventListener("submit", function (e) {
 
   errorMessage.classList.add("hidden");
 
-  const payload = {
-    name: document.getElementById("name").value.trim(),
-    email: document.getElementById("email").value.trim(),
-    source: "Meta Ads",
-    utm_source: getUTM("utm_source"),
-    utm_medium: getUTM("utm_medium"),
-    utm_campaign: getUTM("utm_campaign"),
-    utm_content: getUTM("utm_content")
-  };
+ const payload = {
+  name: document.getElementById("name").value.trim(),
+  email: document.getElementById("email").value.trim(),
+  source: "Meta Ads",
+
+  utm_source: getUTM("utm_source"),
+  utm_medium: getUTM("utm_medium"),
+  utm_campaign: getUTM("utm_campaign"),
+  utm_content: getUTM("utm_content"),
+  utm_adset: getUTM("utm_adset")
+};
 
   fbq("track", "Lead");
 
