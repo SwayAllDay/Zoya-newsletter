@@ -53,19 +53,35 @@
  <h1>Private Preview Unlocked</h1>
   <p class="subtext">Press play to hear the unreleased ZOYA track.</p>
 
-<audio
-  id="audioPlayer"
-  class="audio-player"
-  controls
-  controlsList="nodownload noplaybackrate"
-  disablePictureInPicture
-  preload="metadata"
->
-  <source
-    src="https://newsletter.zoyasmusic.com/downloads/zoya-unreleased.wav?v=1"
-    type="audio/wav"
-  >
-</audio>
+<div class="custom-player">
+  <audio id="audioPlayer" preload="metadata">
+    <source
+      src="https://newsletter.zoyasmusic.com/downloads/zoya-unreleased.mp3?v=10"
+      type="audio/mpeg"
+    >
+  </audio>
+
+  <button id="playPauseBtn" class="play-button" type="button">
+    ▶
+  </button>
+
+  <div class="player-info">
+    <p class="track-title">ZOYA — Unreleased Preview</p>
+
+    <div class="progress-wrap">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <div class="time-row">
+      <span id="currentTime">0:00</span>
+      <span id="duration">0:00</span>
+    </div>
+  </div>
+</div>
+
+<button id="spotifyRevealBtn" type="button">
+  Continue To Spotify
+</button>
 
   <button id="spotifyRevealBtn" type="button">
     Continue To Spotify
