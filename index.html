@@ -21,23 +21,16 @@
     fbq('track', 'PageView');
     fbq('track', 'ViewContent');
   </script>
-
-  <noscript>
-    <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=686728073683776&ev=PageView&noscript=1"/>
-  </noscript>
 </head>
 
 <body>
   <main class="page">
-    <section class="card">
+    <section class="landing-card">
 
-      <div id="stepSignup">
-        <p class="eyebrow">ZOYA INNER CIRCLE</p>
-        <h1>Get an unreleased ZOYA track for free</h1>
-        <p class="subtext">
-          Join the private ZOYA fan list and unlock a free download of an unreleased track.
-        </p>
+      <img class="cover" src="assets/cover.jpg" alt="ZOYA cover image" />
+
+      <div id="stepSignup" class="content">
+        <h1>Unlock my next release here</h1>
 
         <form id="signupForm">
           <input type="text" id="name" placeholder="Your name" required />
@@ -45,7 +38,7 @@
 
           <label class="consent">
             <input type="checkbox" required />
-            I agree to receive emails from ZOYA. I can unsubscribe anytime.
+            I agree to receive emails from ZOYA and can unsubscribe anytime.
           </label>
 
           <button type="submit">Unlock Free Download</button>
@@ -56,12 +49,9 @@
         </p>
       </div>
 
-      <div id="stepDownload" class="hidden">
-        <p class="eyebrow">YOU'RE IN</p>
-        <h1>Your unreleased track is ready 🎧</h1>
-        <p class="subtext">
-          Thanks for joining the ZOYA Inner Circle. Click below to download your free track.
-        </p>
+      <div id="stepDownload" class="content hidden">
+        <h1>Your track is ready 🎧</h1>
+        <p class="subtext">Thanks for joining the ZOYA Inner Circle.</p>
 
         <a
           id="downloadBtn"
@@ -73,21 +63,17 @@
         </a>
       </div>
 
-      <div id="stepSpotify" class="hidden">
-        <p class="eyebrow">ONE MORE STEP</p>
+      <div id="stepSpotify" class="content hidden">
         <h1>Follow ZOYA on Spotify</h1>
-        <p class="subtext">
-          Help support independent music and be the first to hear the next release.
-        </p>
+        <p class="subtext">Be the first to hear the next release.</p>
 
         <a
           id="spotifyBtn"
-          class="button secondary"
+          class="button outline"
           href="https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7"
           target="_blank"
-          rel="noopener noreferrer"
         >
-          Follow ZOYA on Spotify
+          Follow on Spotify
         </a>
       </div>
 
