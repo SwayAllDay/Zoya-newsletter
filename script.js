@@ -75,3 +75,9 @@ spotifyBtn.addEventListener("click", function () {
   fbq("trackCustom", "SpotifyFollowClicked");
 
 });
+
+audioPlayer.playbackRate = 1;
+
+audioPlayer.addEventListener("ratechange", function () {
+  audioPlayer.playbackRate = 1;
+});
