@@ -14,7 +14,7 @@ const durationEl = document.getElementById("duration");
 const spotifyRevealBtn = document.getElementById("spotifyRevealBtn");
 
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxapgJdpnbO14JwIMbEVrldmLvEyCMaZt7pSJdBtV-soVFvwW_aLqXZEo1Jsby_lz0/exec";
+  "https://zoya-newsletter-signup.delicate-pine-c41c.workers.dev/";
 
 const SPOTIFY_URL = "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7";
 
