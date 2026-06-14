@@ -117,11 +117,20 @@ audioPlayer.addEventListener("ended", function () {
 });
 
 spotifyRevealBtn.addEventListener("click", function () {
+
   fbq("trackCustom", "SpotifyRevealClicked");
 
-  window.open(
-    SPOTIFY_URL,
-    "_blank",
-    "noopener,noreferrer"
-  );
+  const appUrl = "spotify:artist:5eqThkuR9VjiLuYfzESTp7";
+  const webUrl = "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7";
+
+  window.location.href = appUrl;
+
+  setTimeout(function () {
+    window.open(
+      webUrl,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  }, 1200);
+
 });
