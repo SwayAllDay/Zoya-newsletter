@@ -14,7 +14,7 @@ const durationEl = document.getElementById("duration");
 const spotifyRevealBtn = document.getElementById("spotifyRevealBtn");
 
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycby05l-uEV2z0MUcS59XhnN92NHVUzfdQBwiSI4IOQUDeECm7TfsHknvLFBhMX4Mp1nA/exec";
+  "https://script.google.com/macros/s/AKfycbxIiZf-mE5-5LFA-BG-80l6ihzwrAAXFgA1a5RGmWa2vpZYeNh2fQklDaToAR1khIRl/exec";
 
 const SPOTIFY_URL = "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7";
 
