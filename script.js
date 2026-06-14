@@ -66,8 +66,10 @@ spotifyRevealBtn.addEventListener("click", function () {
 
   fbq("trackCustom", "SpotifyRevealClicked");
 
-  stepDownload.classList.add("hidden");
-  stepSpotify.classList.remove("hidden");
+  window.open(
+    "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7",
+    "_blank"
+  );
 });
 
 spotifyBtn.addEventListener("click", function () {
