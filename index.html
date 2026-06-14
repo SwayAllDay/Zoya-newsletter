@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ZOYA Newsletter</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ZOYA Inner Circle</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', 'YOUR_META_PIXEL_ID');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent');
+  </script>
 </head>
+
 <body>
-    <h1>Join the ZOYA Inner Circle</h1>
-    <p>Exclusive music, demos and early access.</p>
+  <main class="page">
+    <section class="card">
+      <p class="eyebrow">ZOYA INNER CIRCLE</p>
+
+      <h1>Get an unreleased ZOYA track for free</h1>
+
+      <p class="subtext">
+        Join the private ZOYA fan list and unlock a free download of an unreleased track.
+      </p>
+
+      <form id="signupForm">
+        <input type="text" id="name" placeholder="Your name" required />
+        <input type="email" id="email" placeholder="Your email" required />
+
+        <label class="consent">
+          <input type="checkbox" required />
+          I agree to receive emails from ZOYA. I can unsubscribe anytime.
+        </label>
+
+        <button type="submit">Unlock Free Download</button>
+      </form>
+
+      <div id="successBox" class="hidden">
+        <h2>You're in 🎧</h2>
+        <p>Your free unreleased ZOYA track is now unlocked.</p>
+
+        <a id="downloadBtn" class="button" href="YOUR_DOWNLOAD_LINK_HERE" target="_blank">
+          Download Free Track
+        </a>
+
+        <a id="spotifyBtn" class="button secondary hidden" href="YOUR_SPOTIFY_LINK_HERE" target="_blank">
+          Follow ZOYA on Spotify
+        </a>
+      </div>
+
+      <p id="errorMessage" class="error hidden">
+        Something went wrong. Please try again.
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
