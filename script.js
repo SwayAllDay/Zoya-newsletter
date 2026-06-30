@@ -1,138 +1,126 @@
-const form = document.getElementById("signupForm");
+document.addEventListener("DOMContentLoaded", function () {
 
-const stepSignup = document.getElementById("stepSignup");
-const stepDownload = document.getElementById("stepDownload");
+  const popup = document.getElementById("listenPopup");
+  const closeBtn = document.getElementById("closeListenPopup");
 
-const errorMessage = document.getElementById("errorMessage");
+  const popupTitle = document.getElementById("popupTitle");
+  const popupCover = document.getElementById("popupCover");
 
-const audioPlayer = document.getElementById("audioPlayer");
-const playPauseBtn = document.getElementById("playPauseBtn");
-const progressWrap = document.querySelector(".progress-wrap");
-const progressBar = document.getElementById("progressBar");
-const currentTimeEl = document.getElementById("currentTime");
-const durationEl = document.getElementById("duration");
-const spotifyRevealBtn = document.getElementById("spotifyRevealBtn");
+  const popupSpotify = document.getElementById("popupSpotify");
+  const popupApple = document.getElementById("popupApple");
+  const popupYTMusic = document.getElementById("popupYTMusic");
+  const popupYouTube = document.getElementById("popupYouTube");
 
-const GOOGLE_SCRIPT_URL =
-  "https://zoya-newsletter-signup.delicate-pine-c41c.workers.dev/";
+  const triggers = document.querySelectorAll(".music-popup-trigger");
 
-const SPOTIFY_URL = "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7";
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-let hasTrackedPlay = false;
+  function openSmartLink(appLink, webLink) {
+    if (!isMobile || !appLink) {
+      window.open(webLink, "_blank", "noopener,noreferrer");
+      return;
+    }
 
-function getUTM(param) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(param) || "";
-}
+    const start = Date.now();
+    window.location.href = appLink;
 
-function formatTime(seconds) {
-  if (!Number.isFinite(seconds)) return "0:00";
-
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = Math.floor(seconds % 60)
-    .toString()
-    .padStart(2, "0");
-
-  return `${minutes}:${remainingSeconds}`;
-}
-
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  errorMessage.classList.add("hidden");
-
- const payload = {
-  name: document.getElementById("name").value.trim(),
-  email: document.getElementById("email").value.trim(),
-  source: "Meta Ads",
-
-  utm_source: getUTM("utm_source"),
-  utm_medium: getUTM("utm_medium"),
-  utm_campaign: getUTM("utm_campaign"),
-  utm_content: getUTM("utm_content"),
-  utm_adset: getUTM("utm_adset")
-};
-
-  fbq("track", "Lead");
-
-  stepSignup.classList.add("hidden");
-  stepDownload.classList.remove("hidden");
-
-  if (audioPlayer) {
-    audioPlayer.load();
+    setTimeout(function () {
+      if (Date.now() - start < 1800) {
+        window.location.href = webLink;
+      }
+    }, 1200);
   }
 
-  fetch(GOOGLE_SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  }).catch(function (error) {
-    console.error("Google Sheets save failed:", error);
+  triggers.forEach(function(trigger) {
+
+    trigger.addEventListener("click", function () {
+
+      popupTitle.textContent = trigger.dataset.title;
+
+      popupCover.src = trigger.dataset.cover;
+      popupCover.alt = trigger.dataset.title + " cover";
+
+      popupSpotify.href = trigger.dataset.spotify;
+      popupApple.href = trigger.dataset.apple;
+      popupYTMusic.href = trigger.dataset.ytmusic;
+      popupYouTube.href = trigger.dataset.youtube;
+
+      popupSpotify.onclick = function(e) {
+        e.preventDefault();
+        openSmartLink(trigger.dataset.spotifyApp, trigger.dataset.spotify);
+      };
+
+      popupApple.onclick = function(e) {
+        e.preventDefault();
+        openSmartLink(trigger.dataset.appleApp, trigger.dataset.apple);
+      };
+
+      popupYTMusic.onclick = function(e) {
+        e.preventDefault();
+        openSmartLink(trigger.dataset.ytmusicApp, trigger.dataset.ytmusic);
+      };
+
+      popupYouTube.onclick = function(e) {
+        e.preventDefault();
+        openSmartLink(trigger.dataset.youtubeApp, trigger.dataset.youtube);
+      };
+
+      popup.classList.add("active");
+
+    });
+
   });
-});
 
-playPauseBtn.addEventListener("click", function () {
-  if (audioPlayer.paused) {
-    audioPlayer.play();
-  } else {
-    audioPlayer.pause();
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      popup.classList.remove("active");
+    });
   }
-});
 
-audioPlayer.addEventListener("play", function () {
-  playPauseBtn.textContent = "❚❚";
-
-  if (!hasTrackedPlay) {
-    fbq("trackCustom", "PreviewPlay");
-    hasTrackedPlay = true;
+  if (popup) {
+    popup.addEventListener("click", function (event) {
+      if (event.target === popup) {
+        popup.classList.remove("active");
+      }
+    });
   }
+
 });
+const heroCarousel = document.getElementById("heroCarousel");
 
-audioPlayer.addEventListener("pause", function () {
-  playPauseBtn.textContent = "▶";
-});
-
-audioPlayer.addEventListener("loadedmetadata", function () {
-  durationEl.textContent = formatTime(audioPlayer.duration);
-});
-
-audioPlayer.addEventListener("timeupdate", function () {
-  const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-  progressBar.style.width = `${progress || 0}%`;
-  currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
-});
-
-progressWrap.addEventListener("click", function (e) {
-  const rect = progressWrap.getBoundingClientRect();
-  const clickPosition = e.clientX - rect.left;
-  const percentage = clickPosition / rect.width;
-
-  audioPlayer.currentTime = percentage * audioPlayer.duration;
-});
-
-audioPlayer.addEventListener("ended", function () {
-  playPauseBtn.textContent = "▶";
-  progressBar.style.width = "0%";
-});
-
-spotifyRevealBtn.addEventListener("click", function () {
-
-  fbq("trackCustom", "SpotifyRevealClicked");
-
-  const appUrl = "spotify:artist:5eqThkuR9VjiLuYfzESTp7";
-  const webUrl = "https://open.spotify.com/artist/5eqThkuR9VjiLuYfzESTp7";
-
-  window.location.href = appUrl;
+if (heroCarousel) {
 
   setTimeout(function () {
-    window.open(
-      webUrl,
-      "_blank",
-      "noopener,noreferrer"
-    );
-  }, 1200);
 
+    heroCarousel.classList.add("visible");
+
+  }, 3000);
+
+}
+
+/* PAGE TRANSITIONS */
+
+document.addEventListener("DOMContentLoaded", function () {
+  const internalLinks = document.querySelectorAll("a[href]");
+
+  internalLinks.forEach(function(link) {
+    const href = link.getAttribute("href");
+
+    if (
+      href &&
+      !href.startsWith("#") &&
+      !href.startsWith("http") &&
+      !link.hasAttribute("target")
+    ) {
+      link.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        document.body.classList.add("page-fade-out");
+
+        setTimeout(function() {
+          window.location.href = href;
+        }, 420);
+      });
+    }
+  });
 });
