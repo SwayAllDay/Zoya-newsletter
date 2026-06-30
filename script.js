@@ -31,47 +31,46 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1200);
   }
 
-  triggers.forEach(function(trigger) {
+  if (popup && popupTitle && popupCover) {
+    triggers.forEach(function(trigger) {
+      trigger.addEventListener("click", function () {
 
-    trigger.addEventListener("click", function () {
+        popupTitle.textContent = trigger.dataset.title;
 
-      popupTitle.textContent = trigger.dataset.title;
+        popupCover.src = trigger.dataset.cover;
+        popupCover.alt = trigger.dataset.title + " cover";
 
-      popupCover.src = trigger.dataset.cover;
-      popupCover.alt = trigger.dataset.title + " cover";
+        popupSpotify.href = trigger.dataset.spotify;
+        popupApple.href = trigger.dataset.apple;
+        popupYTMusic.href = trigger.dataset.ytmusic;
+        popupYouTube.href = trigger.dataset.youtube;
 
-      popupSpotify.href = trigger.dataset.spotify;
-      popupApple.href = trigger.dataset.apple;
-      popupYTMusic.href = trigger.dataset.ytmusic;
-      popupYouTube.href = trigger.dataset.youtube;
+        popupSpotify.onclick = function(e) {
+          e.preventDefault();
+          openSmartLink(trigger.dataset.spotifyApp, trigger.dataset.spotify);
+        };
 
-      popupSpotify.onclick = function(e) {
-        e.preventDefault();
-        openSmartLink(trigger.dataset.spotifyApp, trigger.dataset.spotify);
-      };
+        popupApple.onclick = function(e) {
+          e.preventDefault();
+          openSmartLink(trigger.dataset.appleApp, trigger.dataset.apple);
+        };
 
-      popupApple.onclick = function(e) {
-        e.preventDefault();
-        openSmartLink(trigger.dataset.appleApp, trigger.dataset.apple);
-      };
+        popupYTMusic.onclick = function(e) {
+          e.preventDefault();
+          openSmartLink(trigger.dataset.ytmusicApp, trigger.dataset.ytmusic);
+        };
 
-      popupYTMusic.onclick = function(e) {
-        e.preventDefault();
-        openSmartLink(trigger.dataset.ytmusicApp, trigger.dataset.ytmusic);
-      };
+        popupYouTube.onclick = function(e) {
+          e.preventDefault();
+          openSmartLink(trigger.dataset.youtubeApp, trigger.dataset.youtube);
+        };
 
-      popupYouTube.onclick = function(e) {
-        e.preventDefault();
-        openSmartLink(trigger.dataset.youtubeApp, trigger.dataset.youtube);
-      };
-
-      popup.classList.add("active");
-
+        popup.classList.add("active");
+      });
     });
+  }
 
-  });
-
-  if (closeBtn) {
+  if (closeBtn && popup) {
     closeBtn.addEventListener("click", function () {
       popup.classList.remove("active");
     });
@@ -85,22 +84,105 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-});
-const heroCarousel = document.getElementById("heroCarousel");
+  const heroCarousel = document.getElementById("heroCarousel");
 
-if (heroCarousel) {
+  if (heroCarousel) {
+    setTimeout(function () {
+      heroCarousel.classList.add("visible");
+    }, 3000);
+  }
 
-  setTimeout(function () {
+  /* ZOYA INNER CIRCLE SIGNUP FLOW */
 
-    heroCarousel.classList.add("visible");
+  const signupForm = document.getElementById("zoyaSignupForm");
+  const signupStep = document.getElementById("zoyaSignupStep");
+  const downloadStep = document.getElementById("zoyaDownloadStep");
+  const unlockCard = document.querySelector(".zoya-unlock-card");
 
-  }, 3000);
+  if (signupForm && signupStep && downloadStep) {
+    signupForm.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-}
+      signupStep.classList.add("hidden");
+      downloadStep.classList.remove("hidden");
 
-/* PAGE TRANSITIONS */
+      if (unlockCard) {
+        unlockCard.classList.add("unlocked");
+      }
 
-document.addEventListener("DOMContentLoaded", function () {
+      if (typeof fbq === "function") {
+        fbq("track", "Lead");
+      }
+    });
+  }
+
+  /* CUSTOM AUDIO PLAYER */
+
+  const audioPlayer = document.getElementById("zoyaAudioPlayer");
+  const playPauseBtn = document.getElementById("zoyaPlayPauseBtn");
+  const progressWrap = document.querySelector(".zoya-progress-wrap");
+  const progressBar = document.getElementById("zoyaProgressBar");
+  const currentTimeEl = document.getElementById("zoyaCurrentTime");
+  const durationEl = document.getElementById("zoyaDuration");
+
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return "0:00";
+
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+
+    return minutes + ":" + (secs < 10 ? "0" : "") + secs;
+  }
+
+  if (audioPlayer && playPauseBtn) {
+    playPauseBtn.addEventListener("click", function () {
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+        playPauseBtn.textContent = "❚❚";
+      } else {
+        audioPlayer.pause();
+        playPauseBtn.textContent = "▶";
+      }
+    });
+
+    audioPlayer.addEventListener("loadedmetadata", function () {
+      if (durationEl) {
+        durationEl.textContent = formatTime(audioPlayer.duration);
+      }
+    });
+
+    audioPlayer.addEventListener("timeupdate", function () {
+      if (progressBar) {
+        const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progressBar.style.width = progress + "%";
+      }
+
+      if (currentTimeEl) {
+        currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+      }
+    });
+
+    audioPlayer.addEventListener("ended", function () {
+      playPauseBtn.textContent = "▶";
+
+      if (progressBar) {
+        progressBar.style.width = "0%";
+      }
+    });
+  }
+
+  if (progressWrap && audioPlayer) {
+    progressWrap.addEventListener("click", function (event) {
+      const rect = progressWrap.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const width = rect.width;
+
+      audioPlayer.currentTime = (clickX / width) * audioPlayer.duration;
+    });
+  }
+
+  /* PAGE TRANSITIONS */
+
   const internalLinks = document.querySelectorAll("a[href]");
 
   internalLinks.forEach(function(link) {
@@ -123,4 +205,5 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   });
+
 });
