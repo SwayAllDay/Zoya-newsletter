@@ -23,58 +23,85 @@
   </script>
 </head>
 
-<body>
-  <main class="page">
-    <section class="landing-card">
+  <section class="zoya-unlock-section">
 
-      <img class="cover" src="assets/cover.jpg" alt="ZOYA cover image" />
+  <div class="zoya-unlock-card">
 
-      <div id="stepSignup" class="content">
-        <h1>Unlock The Next ZOYA Release</h1>
+    <div class="zoya-unlock-image">
+      <img src="The-world-goes-mute-cover.jpg" alt="ZOYA early access">
+    </div>
 
-        <form id="signupForm">
-          <input type="text" id="name" placeholder="Your name" required />
-          <input type="email" id="email" placeholder="Your email" required />
+    <div class="zoya-unlock-content" id="zoyaSignupStep">
 
-          <label class="consent">
-            <input type="checkbox" required />
-            I agree to receive emails from ZOYA and can unsubscribe anytime.
-          </label>
+      <span>Exclusive Early Access</span>
 
-          <button type="submit">Get Free Access</button>
-        </form>
+      <p>
+        The next ZOYA release isn't out yet. Enter your name and email below to unlock an exclusive preview immediately and hear it before it goes live worldwide
+      </p>
 
-        <p id="errorMessage" class="error hidden">
-          Something went wrong. Please try again.
-        </p>
+      <form id="zoyaSignupForm">
+        <input type="text" id="zoyaName" placeholder="Your name" required>
+        <input type="email" id="zoyaEmail" placeholder="Your email" required>
+
+        <label class="zoya-consent">
+          <input type="checkbox" required>
+          <span>I agree to receive emails from ZOYA</span>
+        </label>
+
+        <button type="submit">Get Free Access</button>
+      </form>
+
+      <p id="zoyaErrorMessage" class="zoya-error hidden">
+        Something went wrong. Please try again.
+      </p>
+
+    </div>
+
+    <div class="zoya-unlock-content hidden" id="zoyaDownloadStep">
+
+<div class="unlock-message">
+  <p><strong>Thank you for being here</strong> 💜</p>
+
+  <p>If you're reading this, you're among the very first people to hear my next release before it's available anywhere else</p>
+
+  <p>Every song starts as an idea, a feeling, or a moment that I can't let go of. This track has been living in my studio for months, and I'm excited to finally share it with you before the rest of the world hears it</p>
+
+  <p>Your support, streams, messages, and shares make it possible for me to keep creating music independently. It truly means more than you know</p>
+
+  <p>I hope this song becomes part of your story the same way it became part of mine</p>
+
+  <span class="signature">Love<br>ZOYA</span>
+</div>
+
+      <div class="zoya-custom-player">
+
+        <audio id="zoyaAudioPlayer" preload="auto">
+          <source src="ZOYA-demo-next-release.mp3" type="audio/mpeg">
+        </audio>
+
+        <button id="zoyaPlayPauseBtn" class="zoya-play-circle" type="button">▶</button>
+
+        <div class="zoya-track-title">ZOYA - ID</div>
+
+        <div class="zoya-progress-wrap">
+          <div id="zoyaProgressBar" class="zoya-progress-bar"></div>
+        </div>
+
+        <div class="zoya-time-row">
+          <span id="zoyaCurrentTime">0:00</span>
+          <span id="zoyaDuration">0:00</span>
+        </div>
+
       </div>
 
- <div id="stepDownload" class="content hidden">
-  <h1>Private Preview Unlocked</h1>
+      <button id="zoyaSpotifyRevealBtn" type="button">
+        Follow On Spotify
+      </button>
 
-  <div class="custom-player">
-    <audio id="audioPlayer" preload="auto">
-      <source src="https://newsletter.zoyasmusic.com/downloads/zoya-unreleased.mp3?v=20" type="audio/mpeg">
-    </audio>
-
-    <button id="playPauseBtn" class="play-circle" type="button">▶</button>
-
-    <div class="track-title">ZOYA - ID</div>
-
-    <div class="progress-wrap">
-      <div id="progressBar" class="progress-bar"></div>
     </div>
 
-    <div class="time-row">
-      <span id="currentTime">0:00</span>
-      <span id="duration">0:00</span>
-    </div>
   </div>
-
-  <button id="spotifyRevealBtn" type="button">
-    Follow On Spotify
-  </button>
-</div>
+</section>
 
     </section>
   </main>
