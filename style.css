@@ -2,23 +2,58 @@
    ZOYA EARLY ACCESS EMBED
 ========================= */
 
-.zoya-unlock-section{
-  background:#050505;
-  padding:120px 28px;
-  border-top:1px solid rgba(255,255,255,0.06);
-  border-bottom:1px solid rgba(255,255,255,0.06);
+html,
+body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  background:#000;
+  overflow-x:hidden;
 }
 
+main{
+  background:#000;
+}
+
+/* SECTION */
+
+.zoya-unlock-section{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:80px 40px;
+  background:#000;
+  overflow:hidden;
+}
+
+/* CARD */
+
 .zoya-unlock-card{
+  position:relative;
+  z-index:2;
+
   max-width:1050px;
+  width:100%;
   margin:0 auto;
+
   display:grid;
   grid-template-columns:0.95fr 1.05fr;
+
   overflow:hidden;
-  border:1px solid rgba(255,255,255,0.14);
-  background:rgba(255,255,255,0.018);
-  box-shadow:0 40px 120px rgba(0,0,0,0.55);
+  background:#111;
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  box-shadow:0 40px 120px rgba(0,0,0,0.9);
 }
+
+/* IMAGE */
 
 .zoya-unlock-image img{
   width:100%;
@@ -29,6 +64,8 @@
   filter:grayscale(1) contrast(1.05);
 }
 
+/* CONTENT */
+
 .zoya-unlock-content{
   padding:70px 64px;
   display:flex;
@@ -37,10 +74,11 @@
   text-align:left;
 }
 
-.zoya-unlock-content span{
+.zoya-unlock-content > span{
   margin-bottom:18px;
-  color:rgba(255,255,255,0.55);
-  font-size:12px;
+  color:white;
+  font-weight:800;
+  font-size:15px;
   letter-spacing:4px;
   text-transform:uppercase;
 }
@@ -61,6 +99,8 @@
   margin-bottom:34px;
 }
 
+/* FORM */
+
 #zoyaSignupForm{
   display:flex;
   flex-direction:column;
@@ -71,8 +111,11 @@
 #zoyaSignupForm input[type="email"]{
   width:100%;
   height:56px;
+  box-sizing:border-box;
+
   background:rgba(255,255,255,0.035);
   border:1px solid rgba(255,255,255,0.16);
+
   color:white;
   padding:0 18px;
   font-size:14px;
@@ -82,6 +125,8 @@
 #zoyaSignupForm input::placeholder{
   color:rgba(255,255,255,0.45);
 }
+
+/* CONSENT */
 
 .zoya-consent{
   display:flex;
@@ -103,9 +148,7 @@
   width:16px;
   height:16px;
   flex:0 0 16px;
-
   margin-top:8px;
-
   accent-color:white;
 }
 
@@ -113,16 +156,21 @@
   display:block;
 }
 
+/* BUTTONS */
+
 #zoyaSignupForm button,
 #zoyaSpotifyRevealBtn{
   height:58px;
   background:white;
   color:black;
+
   border:none;
+
   font-size:12px;
   font-weight:900;
   letter-spacing:2.5px;
   text-transform:uppercase;
+
   cursor:pointer;
   transition:0.35s ease;
 }
@@ -133,9 +181,12 @@
   transform:translateY(-2px);
 }
 
+/* AUDIO PLAYER */
+
 .zoya-custom-player{
   margin:10px 0 24px;
   padding:24px;
+
   border:1px solid rgba(255,255,255,0.12);
   background:rgba(255,255,255,0.05);
 }
@@ -151,6 +202,7 @@
 
 .zoya-track-title{
   text-align:center;
+  color:white;
   font-size:13px;
   font-weight:800;
   margin-bottom:16px;
@@ -184,6 +236,8 @@
   color:white;
 }
 
+/* ERROR / HIDDEN */
+
 .zoya-error{
   color:#ff7777;
   font-size:13px;
@@ -193,103 +247,7 @@
   display:none !important;
 }
 
-@media (max-width:900px){
-  .zoya-unlock-card{
-    grid-template-columns:1fr;
-  }
-
-  .zoya-unlock-image img{
-    min-height:360px;
-  }
-
-  .zoya-unlock-content{
-    padding:46px 28px;
-    text-align:center;
-  }
-}
-
-.zoya-unlock-content > span{
-  color:white;
-  font-weight:800;
-
-  font-size:15px;
-  letter-spacing:4px;
-  text-transform:uppercase;
-}
-
-.zoya-unlock-section{
-  position:relative;
-
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(255,255,255,0.09),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 15% 80%,
-      rgba(255,255,255,0.035),
-      transparent 30%
-    ),
-    linear-gradient(
-      180deg,
-      #030303 0%,
-      #080808 45%,
-      #030303 100%
-    );
-
-  padding:150px 28px;
-
-  border-top:1px solid rgba(255,255,255,0.06);
-  border-bottom:1px solid rgba(255,255,255,0.06);
-
-  overflow:hidden;
-}
-
-.zoya-unlock-section::before{
-  content:"";
-  position:absolute;
-  inset:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,0.035),
-      transparent 18%,
-      transparent 82%,
-      rgba(255,255,255,0.025)
-    );
-
-  pointer-events:none;
-}
-
-.zoya-unlock-section::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:50%;
-
-  width:900px;
-  height:900px;
-
-  transform:translate(-50%, -50%);
-
-  background:radial-gradient(
-    circle,
-    rgba(255,255,255,0.055),
-    transparent 68%
-  );
-
-  filter:blur(18px);
-  pointer-events:none;
-}
-
-.zoya-unlock-card{
-  position:relative;
-  z-index:2;
-}
-
-/* AFTER UNLOCK: HIDE ARTWORK AND CENTER CONTENT */
+/* AFTER UNLOCK */
 
 .zoya-unlock-card.unlocked{
   display:block;
@@ -313,8 +271,28 @@
   margin-top:34px;
 }
 
-@media (max-width:768px){
+/* MOBILE */
 
+@media (max-width:900px){
+  .zoya-unlock-section{
+    padding:40px 18px;
+  }
+
+  .zoya-unlock-card{
+    grid-template-columns:1fr;
+  }
+
+  .zoya-unlock-image img{
+    min-height:360px;
+  }
+
+  .zoya-unlock-content{
+    padding:46px 28px;
+    text-align:center;
+  }
+}
+
+@media (max-width:768px){
   .zoya-unlock-card.unlocked{
     max-width:100%;
   }
@@ -322,5 +300,4 @@
   .zoya-unlock-card.unlocked .zoya-unlock-content{
     padding:48px 28px;
   }
-
 }
