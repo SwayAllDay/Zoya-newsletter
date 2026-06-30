@@ -60,11 +60,11 @@ window.addEventListener("load", function () {
         email: document.getElementById("zoyaEmail").value.trim(),
         source: "Website",
 
-        utm_source: getUTM("utm_source") || "website",
-        utm_medium: getUTM("utm_medium") || "homepage",
-        utm_campaign: getUTM("utm_campaign") || "organic_traffic",
+        utm_source: getUTM("utm_source") || "Website",
+        utm_medium: getUTM("utm_medium") || "newsletter",
+        utm_campaign: getUTM("utm_campaign") || "inner cicrle",
         utm_adset: getUTM("utm_adset") || "organic_followers",
-        utm_content: getUTM("utm_content") || "fan"
+        utm_content: getUTM("utm_content") || "loyal_fan"
       };
 
       if (typeof fbq === "function") {
